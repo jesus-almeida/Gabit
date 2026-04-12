@@ -1,5 +1,5 @@
 # Node (por si lo uso)
-node_modules/
+node_modules\
 
 # Logs
 *.log
