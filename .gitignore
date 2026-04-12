@@ -1,0 +1,15 @@
+# Node (por si lo uso)
+node_modules/
+
+# Logs
+*.log
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Firebase config sensible (opcional según caso)
+config\firebase-config.js
+
+# Entorno
+.env
