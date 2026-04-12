@@ -9,7 +9,7 @@ node_modules\
 Thumbs.db
 
 # Firebase config sensible (opcional según caso)
-config\firebase-config.js
+config/firebase-config.js
 
 # Entorno
 .env
