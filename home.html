@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gabit - Home</title>
+</head>
+
+<body>
+
+    <h1>Home</h1>
+
+    <p id="userEmail">Cargando usuario...</p>
+
+    <button id="logoutBtn">Cerrar sesión</button>
+
+    <script type="module">
+
+        import { auth } from "./js/firebase.js";
+        import { protectPage, logout } from "./js/app.js";
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-auth.js";
+
+        // 🔒 proteger página
+        protectPage();
+
+        // 👤 mostrar usuario
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                document.getElementById("userEmail").textContent =
+                    "Bienvenido: " + user.email;
+            }
+        });
+
+        // 🚪 logout
+        document.getElementById("logoutBtn").onclick = async () => {
+            await logout();
+            window.location.href = "./auth.html";
+        };
+
+    </script>
+
+</body>
+
+</html>

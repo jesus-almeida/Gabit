@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gabit - Auth</title>
+</head>
+
+<body>
+
+    <h2>Login / Register</h2>
+
+    <input type="email" id="email" placeholder="Correo">
+    <input type="password" id="password" placeholder="Contraseña">
+
+    <button id="loginBtn">Login</button>
+    <button id="registerBtn">Register</button>
+
+    <script type="module">
+
+        import { login, register } from "./js/app.js";
+        import { auth } from "./js/firebase.js";
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-auth.js";
+
+        // Si ya está logeado, no puede entrar aquí
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                window.location.href = "./home.html";
+            }
+        });
+
+        const email = document.getElementById("email");
+        const password = document.getElementById("password");
+
+        // LOGIN
+        document.getElementById("loginBtn").onclick = async () => {
+            try {
+
+                if (!email.value || !password.value) {
+                    alert("Completa todos los campos");
+                    return;
+                }
+
+                await login(email.value, password.value);
+                window.location.href = "./home.html";
+
+            } catch (e) {
+                alert(e.message);
+            }
+        };
+
+        // REGISTER
+        document.getElementById("registerBtn").onclick = async () => {
+            try {
+
+                if (!email.value || !password.value) {
+                    alert("Completa todos los campos");
+                    return;
+                }
+
+                if (password.value.length < 6) {
+                    alert("La contraseña debe tener al menos 6 caracteres");
+                    return;
+                }
+
+                await register(email.value, password.value);
+                window.location.href = "./home.html";
+
+            } catch (e) {
+                alert(e.message);
+            }
+        };
+
+    </script>
+
+</body>
+
+</html>
